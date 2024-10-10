@@ -5,6 +5,7 @@ const connectDB = require('./db');
 const HomeRoute = require('./Routes/HomeRoute');
 const FilterRoute = require('./Routes/FilterRoute');
 const JobRoute = require('./Routes/JobRoute');
+const UserRoute = require('./Routes/UserRoute');
 
 
 const app = express();
@@ -21,9 +22,9 @@ let db;
 const startServer = async () => {
     db = await connectDB();
 
-    // app.use('/', HomeRoute(db));
     app.use('/', FilterRoute(db));
     app.use('/job', JobRoute(db));
+    app.use('/auth', UserRoute());
 
     app.listen(PORT, () => console.log(`Server is running on port ${PORT}`))
 };

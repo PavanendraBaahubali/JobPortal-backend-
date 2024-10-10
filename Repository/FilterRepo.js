@@ -1,19 +1,21 @@
 const filteringJobs = async (db, filterObj) => {
+
     const { location, role, minSalary, maxSalary,
-        fullTime, internship, partTime, contract,
-        onSite, remote, hybrid,
-        entryLevel, intermediate, advanced
+            fullTime, internship, partTime, contract,
+            onSite, remote, hybrid,
+            entryLevel, intermediate, advanced
      } = filterObj;
+
     const filter = {};
 
     // Matching location
     if (location) {
-        filter['job.location'] = location;  
+        filter['job.location'] = {$regex : new RegExp(location, 'i')};
     }
 
     // Matching role
     if (role) {
-        filter['job.title'] = role;  
+        filter['job.title'] = {$regex : new RegExp(role, 'i')}
     }
 
     // fullTime, internship, partTime, contract
