@@ -9,7 +9,7 @@ const UserRoute = require('./Routes/UserRoute');
 
 const app = express();
 app.use(cors({
-    origin : "https://jofind-1b960.web.app/"
+    origin : "https://jofind-1b960.web.app"
 }))
 const PORT = process.env.PORT || 3030;
 
