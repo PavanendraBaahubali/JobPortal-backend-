@@ -4,8 +4,11 @@ const UserController = require("../Controllers/UserController")
 const UserRoute = () => {
     const router = express.Router();
     try{
+        router.post('/login', (req, res) => {
+            console.log('login controller hit');
+            UserController.loginUser(req, res)
+        })
         router.post('/register', (req, res) => UserController.registerUser(req, res))
-        router.post('/login', (req, res) => UserController.loginUser(req, res))
     }
     catch(err) {
         console.log(err.message)

@@ -8,6 +8,7 @@ const UserRoute = require('./Routes/UserRoute');
 
 
 const app = express();
+app.use(express.json());
 
 const allowedOrigins = [
     "https://jofind-1b960.web.app",
@@ -21,7 +22,6 @@ app.use(cors({
 const PORT = process.env.PORT || 3030;
 
 
-app.use(express.json());
 
 let db;
 
