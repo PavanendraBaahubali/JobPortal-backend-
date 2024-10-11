@@ -8,9 +8,16 @@ const UserRoute = require('./Routes/UserRoute');
 
 
 const app = express();
+
+const allowedOrigins = [
+    "https://jofind-1b960.web.app",
+    "http://localhost:3000" // For local testing
+];
+
 app.use(cors({
-    origin : "https://jofind-1b960.web.app"
-}))
+    origin: allowedOrigins
+}));
+
 const PORT = process.env.PORT || 3030;
 
 
