@@ -2,7 +2,6 @@ const express = require('express');
 const cors = require("cors");
 
 const connectDB = require('./db');
-const HomeRoute = require('./Routes/HomeRoute');
 const FilterRoute = require('./Routes/FilterRoute');
 const JobRoute = require('./Routes/JobRoute');
 const UserRoute = require('./Routes/UserRoute');
