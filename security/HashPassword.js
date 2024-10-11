@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 const HashPassword = function(schema) {
         // Use a regular function here to access `this`
