@@ -52,7 +52,7 @@ const getAppliedJobs = async (req, res) => {
     try{
         const data = await RecentJobsRepo.getAppliedJobs(userId);
         if (data.length <= 0){
-            res.status(404).json({message : 'not applied jobs are found'})
+            return res.status(404).json({message : 'not applied jobs are found'})
         }
         return res.status(200).json(data);
     }
