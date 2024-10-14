@@ -19,7 +19,8 @@ const getAppliedJobs = async (userId) => {
                 $project: {  
                     _id: 1, 
                     "appliedJobs.jobId": 1, 
-                    "appliedJobs.jobRole": 1  
+                    "appliedJobs.jobRole": 1 ,
+                    "appliedJobs.appliedDate" : 1,
                 } 
             }
         ]);
