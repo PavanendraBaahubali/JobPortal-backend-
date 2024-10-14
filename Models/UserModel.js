@@ -14,6 +14,10 @@ const UserSchema = new mongoose.Schema({
     emailId: {
         type: String, 
         required: true
+    },
+    appliedJobs : {
+        type : Array,
+        default : []
     }
 });
 

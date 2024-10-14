@@ -5,7 +5,6 @@ const UserRoute = () => {
     const router = express.Router();
     try{
         router.post('/login', (req, res) => {
-            console.log('login controller hit');
             UserController.loginUser(req, res)
         })
         router.post('/register', (req, res) => UserController.registerUser(req, res))
