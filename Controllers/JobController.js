@@ -9,10 +9,10 @@ const getJobById  =  async(db, req, res) =>{
     try{
         const job = await jobService.getJobById(db, jobId);
         if(job){
-            res.status(200).json(job);
+            return res.status(200).json(job);
         }
         else{
-            res.status(404).json({message : 'JOB NOT FOUND'})
+            return res.status(404).json({message : 'JOB NOT FOUND'})
         }
     }
     catch(err){
@@ -25,11 +25,11 @@ const postTheJob = async (req, res) => {
     try{
         console.log('im in controller');
         const isSuccess = await postAppliedJob(req.body);
-        if(isSuccess) res.status(200).json({message : "Your application successfully posted"});
+        if(isSuccess) return  res.status(200).json({message : "Your application successfully posted"});
         
     }
     catch(err){
-        res.status(500).json({message : err.message});
+        return res.status(500).json({message : err.message});
     }
 }
 

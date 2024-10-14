@@ -20,10 +20,10 @@ exports.registerUser = async (req, res) => {
         await user.save();
         const token = generateToken(user);
 
-        res.status(201).json({ token, userId : user._id, userName, emailId });
+        return res.status(201).json({ token, userId : user._id, userName, emailId });
         
     } catch (error) {
-        res.status(500).json({ message: 'Server error' });
+        return res.status(500).json({ message: 'Server error' });
     }
 };
 
@@ -42,10 +42,10 @@ exports.loginUser = async (req, res) => {
         }
         
         const token = generateToken(user);
-        res.status(200).json({ token, userId : user._id, userName : user.userName, emailId : user.emailId });
+        return res.status(200).json({ token, userId : user._id, userName : user.userName, emailId : user.emailId });
 
     } catch (error) {
-        res.status(500).json({ message: 'Server error' });
+        return res.status(500).json({ message: 'Server error' });
     }
 };
 
