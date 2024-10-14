@@ -70,10 +70,10 @@ exports.updateUser = async(req, res) => {
             user.password = password;
         }
         await user.save()
-        res.status(200).json({message : 'profile updated'});
+        return res.status(200).json({message : 'profile updated'});
     }
     catch(err){
-        res.status(500).json({message : err.message});
+        return res.status(500).json({message : err.message});
     }
 }
 
@@ -87,9 +87,9 @@ exports.getProfileData = async(req, res) => {
             {$project : {userName : 1, emailId : 1}}
         ])
 
-        res.status(200).json(profileData);
+        return res.status(200).json(profileData);
     }
     catch(err){
-        res.status(500).json({message : err.message});
+        return res.status(500).json({message : err.message});
     }
 }
