@@ -1,7 +1,8 @@
 const jobService = require("../Services/GetJobService")
-const { postAppliedJob } = require("../Repository/RecentJobsRepo")
 const JobRepo = require("../Repository/JobRepo")
-const RecentJobsRepo = require("../Repository/RecentJobsRepo")
+const RecentJobsRepo = require("../Repository/RecentJobsRepo");
+const User = require("../Models/UserModel");
+const mongoose = require('mongoose');
 
 const getJobById  =  async(db, req, res) =>{
     const {jobId} = req.params;
@@ -21,17 +22,44 @@ const getJobById  =  async(db, req, res) =>{
     }
 }
 
-const postTheJob = async (req, res) => {
-    try{
-        console.log('im in controller');
-        const isSuccess = await postAppliedJob(req.body);
-        if(isSuccess) return  res.status(200).json({message : "Your application successfully posted"});
-        
+const postTheAppliedJob = async (req, res) => {
+    const applicationData = req.body;
+    
+    // Function to fetch the date in "dd/mm/yy" format
+    const fetchDate = (date) => {
+        const day = String(date.getDate()).padStart(2, '0'); // Corrected to getDate() instead of getDay()
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = String(date.getFullYear()).slice(-2);
+        return `${day}/${month}/${year}`;
     }
-    catch(err){
-        return res.status(500).json({message : err.message});
+
+    // Add the applied date to application data
+    applicationData['appliedDate'] = fetchDate(new Date());
+
+    const ObjectId = mongoose.Types.ObjectId;
+
+    if (!ObjectId.isValid(applicationData.userId)) {
+        return res.status(400).json({ message: 'Invalid User ID format' });
     }
-}
+
+    try {
+        console.log('Applying for job...', applicationData);
+
+        const updateResponse = await User.updateOne(
+            { _id: new ObjectId(applicationData.userId) },  // Ensure userId is treated as an ObjectId
+            { $push: { appliedJobs: applicationData } }
+        );
+
+        if (updateResponse.nModified === 0) {  // Check if any document was modified
+            return res.status(404).json({ message: 'User not found or job not applied' });
+        }
+
+        return res.status(200).json({ message: "Your application has been successfully posted" });
+    } catch (err) {
+        return res.status(500).json({ message: err.message });
+    }
+};
+
 
 
 
@@ -61,4 +89,4 @@ const getAppliedJobs = async (req, res) => {
     }
 }
 
-module.exports = {getJobById, postTheJob, getAppliedJobsCount, getAppliedJobs};
+module.exports = {getJobById, postTheAppliedJob, getAppliedJobsCount, getAppliedJobs};

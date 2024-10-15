@@ -6,7 +6,7 @@ const JobRoute = (db) => {
     try{
 
         router.get('/:jobId', (req, res) => JobController.getJobById(db, req, res));
-        router.post('/:jobId', (req, res) => JobController.postTheJob(req, res));
+        router.post('/:jobId', (req, res) => JobController.postTheAppliedJob(req, res));
         
     }
     catch(err){
